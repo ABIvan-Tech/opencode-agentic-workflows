@@ -1,0 +1,65 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "reviewer": {
+      "mode": "subagent",
+      "hidden": true,
+      "description": "Single-model code review. Loads the review-core skill.",
+      "permission": {
+        "edit": "deny",
+        "bash": "allow",
+        "read": "allow",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "skill": "allow"
+      }
+    },
+    "reviewer-a": {
+      "mode": "subagent",
+      "hidden": true,
+      "model": "opencode/deepseek-v4-flash-free",
+      "description": "Multi-review slot A — free DeepSeek V4 Flash. Loads the review-core skill.",
+      "permission": {
+        "edit": "deny",
+        "bash": "allow",
+        "read": "allow",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "skill": "allow"
+      }
+    },
+    "reviewer-b": {
+      "mode": "subagent",
+      "hidden": true,
+      "model": "opencode/north-mini-code-free",
+      "description": "Multi-review slot B — free North Mini Code. Loads the review-core skill.",
+      "permission": {
+        "edit": "deny",
+        "bash": "allow",
+        "read": "allow",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "skill": "allow"
+      }
+    },
+    "reviewer-c": {
+      "mode": "subagent",
+      "hidden": true,
+      "model": "opencode/big-pickle",
+      "description": "Multi-review slot C — free Big Pickle. Loads the review-core skill.",
+      "permission": {
+        "edit": "deny",
+        "bash": "allow",
+        "read": "allow",
+        "grep": "allow",
+        "glob": "allow",
+        "webfetch": "allow",
+        "skill": "allow"
+      }
+    }
+  },
+  "instructions": ["README.md"]
+}

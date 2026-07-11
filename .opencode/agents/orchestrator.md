@@ -325,7 +325,24 @@ If `planner` is used:
 4. do not execute if the plan reports `Implementation Readiness: BLOCKED`
 5. if scopes, dependencies, readiness notes, or the memory note are missing, request a re-plan
 
-### Step 2: Parse Into Phases
+### Step 2: Plan Review / Approval Gate
+
+After `planner` returns an execution-ready plan:
+
+1. present the full plan to the user in a structured readable format (objective, scope, steps, verification, readiness)
+2. **ask for explicit approval** using the `question` tool before any implementation starts
+3. if the user approves → proceed to Step 3
+4. if the user requests changes → route back to `planner` with the feedback for a re-plan or `Plan Delta`
+5. if the plan reports `Implementation Readiness: BLOCKED`, explain what is needed and do not proceed
+6. if the plan is substantial, load the `planning-structure` skill as a reference for readiness evaluation
+
+Hard rules:
+
+1. do not skip the approval gate even for `Quick Change` — the user must explicitly approve before execution
+2. do not paraphrase or abbreviate the plan in a way that hides scope, dependencies, or verification criteria
+3. if the user provides change requests, pass them verbatim to `planner`; do not re-interpret them in Orchestrator
+
+### Step 3: Parse Into Phases
 
 Build phases from the plan or from a clearly execution-ready routing decision for localized work:
 
@@ -335,7 +352,7 @@ Build phases from the plan or from a clearly execution-ready routing decision fo
 4. when the plan contains epics/features, preserve epic boundaries unless the plan explicitly allows parallel execution across them
 5. if the work is not clearly localized and execution-ready, do not invent phases inside Orchestrator; route to `planner`
 
-### Step 3: Execute
+### Step 4: Execute
 
 For each phase:
 
@@ -346,7 +363,7 @@ For each phase:
 5. if any executor reports `EDIT_TOOLS_UNAVAILABLE`, stop and ask the user to enable editing
 6. if execution discovers a scope change that invalidates the current plan, stop and send the task back to `planner` for a `Plan Delta` or re-plan
 
-### Step 4: Review
+### Step 5: Review
 
 Use `review-orchestration` skill.
 
@@ -358,7 +375,7 @@ Rules:
 4. if review surfaces concrete issues, route the smallest necessary follow-up fix and re-review as needed
 5. run a targeted optimization pass only when justified by review findings or explicit user intent
 
-### Step 5: Debug Loop
+### Step 6: Debug Loop
 
 Use `debugger` only for concrete reproducible failures.
 
@@ -368,7 +385,7 @@ Use `debugger` only for concrete reproducible failures.
 4. if `status=ESCALATED` and `recurrence_flag=true`, stop and restart from Step 1 using the Debugger findings for root-cause replanning
 5. otherwise continue with the minimal verified fix and re-review
 
-### Step 6: Verification Gate
+### Step 7: Verification Gate
 
 Use `verifier` as the independent acceptance gate after review and any follow-up fixes.
 
@@ -379,11 +396,11 @@ Rules:
 3. if `verifier` reports `Verification Verdict: BLOCKED`, route the smallest necessary fix and then re-run review/verification as appropriate
 4. use `Verification Verdict: PASS` as the default closure signal for objective readiness
 
-### Step 7: Report
+### Step 8: Report
 
 Report outcomes, residual risks, and next steps in chat.
 
-### Step 8: Knowledge Extraction
+### Step 9: Knowledge Extraction
 
 Use `memory-management` skill.
 

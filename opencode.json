@@ -1,8 +1,17 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "agent": {
+    "coder": { "model": "opencode/big-pickle" },
+    "debugger": { "model": "opencode-go/deepseek-v4-pro" },
+    "designer": { "model": "opencode-go/qwen3.7-plus" },
+    "explore": { "model": "opencode/deepseek-v4-flash-free" },
+    "multi-reviewer": { "model": "opencode-go/deepseek-v4-pro" },
+    "orchestrator": { "model": "opencode/big-pickle" },
+    "planner": { "model": "opencode-go/glm-5.2" },
+    "verifier": { "model": "opencode-go/mimo-v2.5" },
     "reviewer": {
       "mode": "subagent",
+      "model": "opencode-go/glm-5.2",
       "hidden": true,
       "description": "Single-model code review. Loads the review-core skill.",
       "permission": {

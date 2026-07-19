@@ -1,14 +1,14 @@
 {
   "version": 1,
   "allowed_targets": [
-    "skills/self-improvement-overlays/**"
+    ".agents/skills/self-improvement-overlays/**"
   ],
   "protected_targets": [
     "opencode.json",
     ".opencode/agents/**",
-    "skills/self-improvement-governance/**",
-    "skills/self-improvement-evaluation/**",
-    "self-improvement/**"
+    ".agents/skills/self-improvement-governance/**",
+    ".agents/skills/self-improvement-evaluation/**",
+    ".agents/self-improvement/**"
   ],
   "risk_tiers": {
     "low": {

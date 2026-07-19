@@ -19,7 +19,7 @@ Use this skill for any workflow that proposes, evaluates, or promotes bounded se
 
 Only the dedicated low-risk overlay namespace is auto-mutable:
 
-- `skills/self-improvement-overlays/**`
+- `.agents/skills/self-improvement-overlays/**`
 
 All other paths are protected by default.
 

@@ -66,10 +66,10 @@ Use multi-model review when any are true:
 
 For every review run, inject these baseline skills:
 
-1. `@skills/security-best-practices/SKILL.md`
-2. `@skills/code-quality/SKILL.md`
-3. `@skills/testing-qa/SKILL.md`
-4. `@skills/review-core/SKILL.md`
+1. `@.agents/skills/security-best-practices/SKILL.md`
+2. `@.agents/skills/code-quality/SKILL.md`
+3. `@.agents/skills/testing-qa/SKILL.md`
+4. `@.agents/skills/review-core/SKILL.md`
 
 Single-model path:
 
@@ -85,7 +85,7 @@ Multi-model path:
    - `=== ReviewerGPT ===`
    - `=== ReviewerGemini ===`
    - `=== Reviewer ===`
-5. use `@skills/multi-model-review/SKILL.md` for consolidation policy
+5. use `@.agents/skills/multi-model-review/SKILL.md` for consolidation policy
 
 ## 6. Fix Loop After Review
 

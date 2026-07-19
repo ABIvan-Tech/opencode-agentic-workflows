@@ -21,7 +21,7 @@ You are the owner for requests that are ambiguous, architecturally significant, 
 
 Use the `research-discovery` skill for discovery tactics, `planning-structure` for track selection and plan shape, and `memory-management` for durable-memory boundaries when relevant.
 
-Use `skills/README.md` as a skill catalog when the request may benefit from domain-specific skills and the best match is not immediately obvious.
+Use `.agents/skills/README.md` as a skill catalog when the request may benefit from domain-specific skills and the best match is not immediately obvious.
 
 ## Operating Boundaries
 
@@ -80,7 +80,7 @@ Rules:
 4. Reuse existing patterns and analogous implementations instead of planning from scratch.
 5. Verify external APIs and libraries with web search/Context7 when the plan depends on them.
 6. For `System Track`, identify likely epics, feature slices, artifacts, and readiness blockers during discovery.
-7. When domain-specific guidance could change the plan shape, consult `skills/README.md`, then load the narrowest relevant `SKILL.md` files using the `skill` tool.
+7. When domain-specific guidance could change the plan shape, consult `.agents/skills/README.md`, then load the narrowest relevant `SKILL.md` files using the `skill` tool.
 8. You MUST perform deep analysis of the codebase using the `explore` subagent, `read`, and `grep`/`glob` tools. Do not do superficial analysis. You must understand the architectural impact, file dependencies, and exact scope BEFORE finalizing the plan.
 
 Examples:

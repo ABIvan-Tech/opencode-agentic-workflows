@@ -82,7 +82,7 @@ Run `opencode models` to see all available model IDs.
 
 For bounded self-improvement work, use the normal orchestrator flow and let it route to the hidden improvement roles when a task is about a candidate proposal or evaluation:
 
-1. prepare a candidate proposal that only targets low-risk overlay assets under `skills/self-improvement-overlays/`
+1. prepare a candidate proposal that only targets low-risk overlay assets under `.agents/skills/self-improvement-overlays/`
 2. let the `improvement-analyst` review the proposal and produce a structured candidate description
 3. let the `improvement-evaluator` score the candidate against safety, reliability, cost, reuse, and routing criteria
 4. only promote when the evaluation passes and the policy allowlist still permits the target
@@ -97,7 +97,7 @@ It introduces:
 
 - a hidden improvement analyst and evaluator for candidate proposal and independent scoring
 - a low-risk overlay namespace for auto-mutable prompt/skill fragments
-- policy, schema, scenario, and release manifests under [self-improvement](self-improvement)
+- policy, schema, scenario, and release manifests under [.agents/self-improvement](.agents/self-improvement)
 - a validation and evaluation harness that can run locally without mutating protected control-plane files
 
 The initial release is intentionally narrow: it only allows low-risk overlay changes and forbids automatic edits to routing, permissions, core agents, or governance policy.
@@ -110,6 +110,24 @@ project_root/
 │   ├── project_decisions.md
 │   ├── error_patterns.md
 │   └── archive/
+├── .agents/
+│   ├── skills/
+│   │   ├── README.md
+│   │   ├── review-core/           (reviewer logic, loaded by reviewer + reviewer-a/b/c)
+│   │   ├── planning-structure/
+│   │   ├── research-discovery/
+│   │   ├── memory-management/
+│   │   ├── code-quality/
+│   │   ├── testing-qa/
+│   │   ├── self-improvement-governance/
+│   │   ├── self-improvement-evaluation/
+│   │   └── self-improvement-overlays/
+│   └── self-improvement/
+│       ├── policy/
+│       ├── schemas/
+│       ├── scenarios/
+│       ├── scripts/
+│       └── reports/
 ├── .opencode/
 │   ├── agents/
 │   │   ├── orchestrator.md
@@ -121,24 +139,7 @@ project_root/
 │   │   ├── verifier.md
 │   │   ├── improvement-analyst.md
 │   │   └── improvement-evaluator.md
-│   └── skills -> ../skills/  (symlink)
-├── skills/
-│   ├── README.md
-│   ├── review-core/           (reviewer logic, loaded by reviewer + reviewer-a/b/c)
-│   ├── planning-structure/
-│   ├── research-discovery/
-│   ├── memory-management/
-│   ├── code-quality/
-│   ├── testing-qa/
-│   ├── self-improvement-governance/
-│   ├── self-improvement-evaluation/
-│   └── self-improvement-overlays/
-├── self-improvement/
-│   ├── policy/
-│   ├── schemas/
-│   ├── scenarios/
-│   ├── scripts/
-│   └── reports/
+│   └── skills -> ../.agents/skills/  (symlink)
 ├── opencode.json               (reviewer + reviewer-a/b/c + hidden improvement agents defined here)
 └── README.md
 ```
@@ -387,9 +388,9 @@ Routing rule:
 
 ## Skills
 
-Skills are auto-discovered from `.opencode/skills/` (symlinked to `skills/`). The opencode `skill` tool loads them on demand.
+Skills are stored in `.agents/skills/` and are exposed to OpenCode through the compatibility symlink `.opencode/skills`. The OpenCode `skill` tool loads them on demand.
 
-For a catalog of available skills and when to use each one, see [`./skills/README.md`](skills/README.md).
+For a catalog of available skills and when to use each one, see [`./.agents/skills/README.md`](.agents/skills/README.md).
 
 Important skills:
 

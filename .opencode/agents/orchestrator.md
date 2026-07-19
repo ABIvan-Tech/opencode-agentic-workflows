@@ -64,9 +64,9 @@ You are not the problem-framing owner. Your job is to decide where work should g
 
 ## Skill Index Navigation
 
-Skills are auto-discovered from `.opencode/skills/` and `~/.config/opencode/skills/`. Use the `skill` tool to load them.
+Skills are auto-discovered from `.opencode/skills/` and `~/.config/opencode/skills/`. In this repository the canonical storage location is `.agents/skills/`, and `.opencode/skills` is a compatibility symlink. Use the `skill` tool to load them.
 
-Use the skills README at `skills/README.md` as the first-stop catalog when task-domain skill selection is unclear.
+Use the skills README at `.agents/skills/README.md` as the first-stop catalog when task-domain skill selection is unclear.
 
 Rules:
 
@@ -455,7 +455,7 @@ When Parallelization is enabled:
 Before delegating implementation or review work:
 
 1. classify the task domain only at the level needed to choose skills for delegation
-2. if skill selection is ambiguous or overlapping, consult `skills/README.md`
+2. if skill selection is ambiguous or overlapping, consult `.agents/skills/README.md`
 3. select the narrowest relevant skills
 4. set priority order
 5. inject the skills explicitly into the delegation prompt

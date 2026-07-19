@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Improvement Release",
+  "type": "object",
+  "required": ["release_id", "candidate_id", "baseline_ref", "policy_version", "commit_sha", "metrics", "rollback_ref"],
+  "properties": {
+    "release_id": { "type": "string" },
+    "candidate_id": { "type": "string" },
+    "baseline_ref": { "type": "string" },
+    "policy_version": { "type": "integer" },
+    "commit_sha": { "type": "string" },
+    "metrics": { "type": "object" },
+    "rollback_ref": { "type": "string" }
+  },
+  "additionalProperties": false
+}

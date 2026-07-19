@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "allowed_targets": [
+    "skills/self-improvement-overlays/**"
+  ],
+  "protected_targets": [
+    "opencode.json",
+    ".opencode/agents/**",
+    "skills/self-improvement-governance/**",
+    "skills/self-improvement-evaluation/**",
+    "self-improvement/**"
+  ],
+  "risk_tiers": {
+    "low": {
+      "allow_auto_promotion": true,
+      "max_file_changes": 3,
+      "max_line_delta": 120
+    },
+    "medium": {
+      "allow_auto_promotion": false,
+      "max_file_changes": 5,
+      "max_line_delta": 300
+    }
+  }
+}

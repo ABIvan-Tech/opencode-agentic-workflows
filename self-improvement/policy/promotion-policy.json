@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "auto_promotion": {
+    "enabled": true,
+    "requires_review": true,
+    "requires_verifier": true,
+    "requires_independent_evaluator": true
+  },
+  "budgets": {
+    "max_candidates_per_window": 1,
+    "max_scenario_runs": 6,
+    "max_line_delta": 120,
+    "max_files_changed": 3
+  },
+  "gates": {
+    "no_safety_findings": true,
+    "no_heldout_regression": true,
+    "budget_compliant": true,
+    "allowlisted_target": true,
+    "schema_valid": true
+  }
+}

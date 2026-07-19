@@ -1,0 +1,15 @@
+{
+  "release_id": "release-demo-overlay-001",
+  "candidate_id": "demo-overlay-001",
+  "baseline_ref": "baseline-v1",
+  "policy_version": 1,
+  "commit_sha": "pending",
+  "metrics": {
+    "reliability": 0.91,
+    "safety": 1.0,
+    "cost": 0.88,
+    "reuse": 0.9,
+    "routing": 0.93
+  },
+  "rollback_ref": "baseline-v1"
+}

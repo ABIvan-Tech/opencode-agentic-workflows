@@ -38,6 +38,8 @@ The source of truth remains each skill's own `SKILL.md` file and its `descriptio
 - **Multi-model review orchestration** → `multi-model-review`
 - **Parallel isolated work using git worktrees** → `git-worktree`
 - **Memory boundaries and durable repo memory** → `memory-management`
+- **Bounded self-improvement governance and promotion gates** → `self-improvement-governance`
+- **Independent evaluation of bounded self-improvement candidates** → `self-improvement-evaluation`
 
 ## Workflow and orchestration skills
 

@@ -1,0 +1,18 @@
+{
+  "candidate_id": "demo-overlay-001",
+  "decision": "PASS_AUTO",
+  "scores": {
+    "reliability": 0.91,
+    "safety": 1.0,
+    "cost": 0.88,
+    "reuse": 0.9,
+    "routing": 0.93
+  },
+  "budget_used": {
+    "scenario_runs": 3,
+    "max_scenario_runs": 6
+  },
+  "policy_findings": [],
+  "confidence": "high",
+  "summary": "Synthetic evaluation passed for the low-risk overlay scaffold."
+}

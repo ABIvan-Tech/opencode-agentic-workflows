@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Improvement Candidate",
+  "type": "object",
+  "required": ["candidate_id", "risk_tier", "target_path", "hypothesis", "signal_refs", "scenario_ids", "budget", "reason"],
+  "properties": {
+    "candidate_id": { "type": "string" },
+    "risk_tier": { "type": "string", "enum": ["low", "medium"] },
+    "target_path": { "type": "string" },
+    "hypothesis": { "type": "string" },
+    "signal_refs": { "type": "array", "items": { "type": "string" } },
+    "scenario_ids": { "type": "array", "items": { "type": "string" } },
+    "budget": { "type": "object" },
+    "reason": { "type": "string" }
+  },
+  "additionalProperties": false
+}

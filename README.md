@@ -19,9 +19,9 @@ This repo gives you a ready-to-adapt control plane for OpenCode agents:
 This is a **supervisor-worker** multi-agent system, not a peer-to-peer hive.
 
 - One **primary agent** (`orchestrator`) is user-facing — the main entrypoint.
-- Eleven **subagents** are invoked programmatically by the orchestrator via the Task tool.
+- Thirteen **subagents** are invoked programmatically by the orchestrator via the Task tool.
 - `planner` is a hidden subagent — invoked by orchestrator via Task tool for planning tasks.
-- All other subagents are hidden and cannot call each other; flow is strictly hierarchical: orchestrator → {planner, coder, designer, debugger, explore, reviewer-a/b/c, multi-reviewer, verifier}.
+- All other subagents are hidden and cannot call each other; flow is strictly hierarchical: orchestrator → {planner, coder, designer, debugger, explore, reviewer-a/b/c, multi-reviewer, verifier, improvement-analyst, improvement-evaluator}.
 
 What this is **not**:
 - Not a decentralized hive-mind. There is one control plane.
@@ -78,6 +78,30 @@ By default, agents inherit the globally configured model. To assign different mo
 
 Run `opencode models` to see all available model IDs.
 
+### Self-improvement quick start
+
+For bounded self-improvement work, use the normal orchestrator flow and let it route to the hidden improvement roles when a task is about a candidate proposal or evaluation:
+
+1. prepare a candidate proposal that only targets low-risk overlay assets under `skills/self-improvement-overlays/`
+2. let the `improvement-analyst` review the proposal and produce a structured candidate description
+3. let the `improvement-evaluator` score the candidate against safety, reliability, cost, reuse, and routing criteria
+4. only promote when the evaluation passes and the policy allowlist still permits the target
+
+This keeps the improvement loop explicit, reviewable, and fail-closed.
+
+## Bounded self-improvement scaffold
+
+This repository now includes a bounded self-improvement scaffold for safe, reviewable agent evolution.
+
+It introduces:
+
+- a hidden improvement analyst and evaluator for candidate proposal and independent scoring
+- a low-risk overlay namespace for auto-mutable prompt/skill fragments
+- policy, schema, scenario, and release manifests under [self-improvement](self-improvement)
+- a validation and evaluation harness that can run locally without mutating protected control-plane files
+
+The initial release is intentionally narrow: it only allows low-risk overlay changes and forbids automatic edits to routing, permissions, core agents, or governance policy.
+
 ## Repository Layout
 
 ```text
@@ -93,9 +117,10 @@ project_root/
 │   │   ├── explore.md
 │   │   ├── coder.md
 │   │   ├── designer.md
-│   │   ├── multi-reviewer.md
 │   │   ├── debugger.md
-│   │   └── verifier.md
+│   │   ├── verifier.md
+│   │   ├── improvement-analyst.md
+│   │   └── improvement-evaluator.md
 │   └── skills -> ../skills/  (symlink)
 ├── skills/
 │   ├── README.md
@@ -105,8 +130,16 @@ project_root/
 │   ├── memory-management/
 │   ├── code-quality/
 │   ├── testing-qa/
-│   └── ...
-├── opencode.json               (reviewer + reviewer-a/b/c defined here with models)
+│   ├── self-improvement-governance/
+│   ├── self-improvement-evaluation/
+│   └── self-improvement-overlays/
+├── self-improvement/
+│   ├── policy/
+│   ├── schemas/
+│   ├── scenarios/
+│   ├── scripts/
+│   └── reports/
+├── opencode.json               (reviewer + reviewer-a/b/c + hidden improvement agents defined here)
 └── README.md
 ```
 
@@ -133,8 +166,22 @@ project_root/
 | `multi-reviewer` | agents/multi-reviewer.md | (inherit) | edit: deny, bash: deny |
 | `debugger` | agents/debugger.md | (inherit) | edit: allow, bash: allow |
 | `verifier` | agents/verifier.md | (inherit) | edit: deny, bash: allow |
+| `improvement-analyst` | agents/improvement-analyst.md | (inherit) | edit: deny, bash: deny, read-only |
+| `improvement-evaluator` | agents/improvement-evaluator.md | (inherit) | edit: deny, bash: deny, read-only |
 
-All subagents are `hidden: true` — they don't appear in the `@` autocomplete. The orchestrator's task permissions use an explicit allowlist; only listed subagents can be invoked.
+All subagents are `hidden: true` — they don't appear in the `@` autocomplete. The orchestrator's task permissions use an explicit allowlist; only listed subagents can be invoked. The new improvement roles are read-only reviewers for candidate proposals and do not author changes directly.
+
+## Self-improvement flow
+
+The repository uses a bounded improvement loop rather than unrestricted self-editing:
+
+1. **Proposal** — an improvement candidate is drafted against the allowlisted overlay surface only.
+2. **Analysis** — `improvement-analyst` inspects the proposal and checks whether the target is within the safe boundary.
+3. **Evaluation** — `improvement-evaluator` scores the candidate independently and returns a `PASS_AUTO`, `PASS_MANUAL`, or `BLOCKED` decision.
+4. **Promotion** — a release record is created only if the candidate passes policy, schema, and safety gates.
+5. **Rollback** — if a promotion later proves unsafe, the release can be rolled back to the baseline state.
+
+Core routing, permissions, memory, and security policy remain protected and are not eligible for auto-modification.
 
 ## Control Plane
 
@@ -356,6 +403,9 @@ Important skills:
 - `code-quality` — implementation/review heuristics
 - `testing-qa` — validation rules
 - `security-best-practices` — security review baseline
+- `self-improvement-governance` — bounded self-improvement policy, allowlists, promotion gates, rollback rules
+- `self-improvement-evaluation` — evaluation protocol and fail-closed decision rules
+- `self-improvement-overlays/task-summary-reuse` — first low-risk overlay candidate for additive prompt/skill reuse
 - `kotlin-backend-jpa-entity-mapping` — Kotlin + Spring Data JPA/Hibernate entity design
 - `kotlin-tooling-agp9-migration` — KMP / Android Gradle Plugin 9+ migration guide
 

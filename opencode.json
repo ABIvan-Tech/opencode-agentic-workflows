@@ -9,6 +9,8 @@
     "orchestrator": { "model": "opencode/big-pickle" },
     "planner": { "model": "opencode-go/glm-5.2" },
     "verifier": { "model": "opencode-go/mimo-v2.5" },
+    "improvement-analyst": { "model": "opencode-go/glm-5.2" },
+    "improvement-evaluator": { "model": "opencode-go/mimo-v2.5" },
     "reviewer": {
       "mode": "subagent",
       "model": "opencode-go/glm-5.2",

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Improvement Evaluation",
+  "type": "object",
+  "required": ["candidate_id", "decision", "scores", "budget_used", "policy_findings", "confidence", "summary"],
+  "properties": {
+    "candidate_id": { "type": "string" },
+    "decision": { "type": "string", "enum": ["PASS_AUTO", "NEEDS_HUMAN", "REJECT"] },
+    "scores": { "type": "object" },
+    "budget_used": { "type": "object" },
+    "policy_findings": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "type": "string" },
+    "summary": { "type": "string" }
+  },
+  "additionalProperties": false
+}
